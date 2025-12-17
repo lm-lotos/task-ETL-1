@@ -46,3 +46,20 @@ for col in text_cols:
 print("\n=== CLEANED DATA INFO ===")
 print(df_clean.info())
 
+# 4. Feature engineering
+
+# full name
+df_clean["full_name"] = df_clean["first_name"] + " " + df_clean["last_name"]
+
+# email domain
+df_clean["email_domain"] = df_clean["email"].str.split("@").str[-1]
+
+# city name length
+df_clean["city_length"] = df_clean["city"].str.len()
+
+# gmail flag
+df_clean["is_gmail"] = df_clean["email_domain"] == "gmail.com"
+
+print("\n=== FEATURE ENGINEERING PREVIEW ===")
+print(df_clean[["full_name", "email_domain", "city_length", "is_gmail"]].head())
+
