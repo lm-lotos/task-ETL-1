@@ -27,3 +27,22 @@ print(df.isna().sum())
 print("\n=== DUPLICATES ===")
 print("Number of duplicate rows:", df.duplicated().sum())
 
+# 3. Data cleaning
+
+# work on a copy to avoid modifying original dataframe
+df_clean = df.copy()
+
+# drop rows that are completely empty
+df_clean = df_clean.dropna(how="all")
+
+# remove duplicate rows
+df_clean = df_clean.drop_duplicates()
+
+# standardize text columns (strip spaces)
+text_cols = df_clean.select_dtypes(include="object").columns
+for col in text_cols:
+    df_clean[col] = df_clean[col].str.strip()
+
+print("\n=== CLEANED DATA INFO ===")
+print(df_clean.info())
+
