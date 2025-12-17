@@ -19,3 +19,11 @@ print(df.info())
 
 print("\n=== DESCRIBE ===")
 print(df.describe())
+# 2. Data quality check: missing values and duplicates
+
+print("\n=== MISSING VALUES ===")
+print(df.isna().sum())
+
+print("\n=== DUPLICATES ===")
+print("Number of duplicate rows:", df.duplicated().sum())
+
