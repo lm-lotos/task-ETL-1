@@ -118,3 +118,20 @@ print(top_5_domains)
 
 print("\nNumber of unique email domains:", unique_domains_count)
 
+# 7. Export results
+
+# export cleaned dataset
+df_clean.to_csv("uk500_clean.csv", index=False, encoding="utf-8")
+
+# export gmail users
+gmail_users.to_csv("gmail_users.csv", index=False, encoding="utf-8")
+
+# export statistics to Excel
+with pd.ExcelWriter("stats.xlsx", engine="xlsxwriter") as writer:
+    top_5_cities.to_excel(writer, sheet_name="Top_5_Cities", index=False)
+    top_5_domains.to_frame(name="count").to_excel(
+        writer, sheet_name="Top_5_Email_Domains"
+    )
+
+print("\n=== EXPORT COMPLETED ===")
+
