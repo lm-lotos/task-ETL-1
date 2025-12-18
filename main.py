@@ -63,3 +63,31 @@ df_clean["is_gmail"] = df_clean["email_domain"] == "gmail.com"
 print("\n=== FEATURE ENGINEERING PREVIEW ===")
 print(df_clean[["full_name", "email_domain", "city_length", "is_gmail"]].head())
 
+# 5. Data filtering and segmentation
+
+# users with gmail.com
+gmail_users = df_clean.loc[df_clean["is_gmail"]]
+
+# companies with LLC or Ltd in name
+llc_ltd_companies = df_clean.loc[
+    df_clean["company_name"].str.contains("LLC|Ltd", case=False, na=False)
+]
+
+# people from London
+london_users = df_clean.loc[df_clean["city"] == "London"]
+
+# companies with name length >= 4 words
+df_clean["company_word_count"] = df_clean["company_name"].str.split().str.len()
+long_company_names = df_clean.loc[df_clean["company_word_count"] >= 4]
+
+# positional selections
+first_10_rows = df_clean.iloc[:10, 2:6]
+every_10th_row = df_clean.iloc[::10]
+random_5_rows = df_clean.sample(5)
+
+print("\n=== FILTERING RESULTS ===")
+print("Gmail users:", len(gmail_users))
+print("LLC/Ltd companies:", len(llc_ltd_companies))
+print("London users:", len(london_users))
+print("Long company names:", len(long_company_names))
+
