@@ -91,3 +91,30 @@ print("LLC/Ltd companies:", len(llc_ltd_companies))
 print("London users:", len(london_users))
 print("Long company names:", len(long_company_names))
 
+# 6. Grouping and statistics
+
+# people count by city
+people_by_city = (
+    df_clean.groupby("city")
+    .size()
+    .reset_index(name="people_count")
+    .sort_values("people_count", ascending=False)
+)
+
+top_5_cities = people_by_city.head(5)
+
+# top 5 email domains
+top_5_domains = df_clean["email_domain"].value_counts().head(5)
+
+# number of unique email domains
+unique_domains_count = df_clean["email_domain"].nunique()
+
+print("\n=== STATISTICS ===")
+print("Top 5 cities:")
+print(top_5_cities)
+
+print("\nTop 5 email domains:")
+print(top_5_domains)
+
+print("\nNumber of unique email domains:", unique_domains_count)
+
